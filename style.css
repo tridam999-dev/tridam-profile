@@ -867,7 +867,42 @@ body::before {
     -webkit-backdrop-filter: blur(10px);
   }
 
-  .avatar { width: 92px; height: 92px; margin-bottom: 16px; }
+  .avatar-wrapper {
+  width: 104px;
+  height: 104px;
+  margin-bottom: 42px;
+  display: grid;
+  place-items: center;
+}
+
+.avatar {
+  width: 104px;
+  height: 104px;
+  margin: 0;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}
+
+.avatar-ring-1 {
+  width: 132px;
+  height: 132px;
+}
+
+.avatar-ring-2 {
+  width: 154px;
+  height: 154px;
+}
+
+.avatar-wrapper.hover-lift:hover .avatar-ring-1 {
+  width: 140px;
+  height: 140px;
+}
+
+.avatar-wrapper.hover-lift:hover .avatar-ring-2 {
+  width: 162px;
+  height: 162px;
+}
   .name { font-size: 28px; letter-spacing: 0.08em; }
   .typing-line { font-size: 13px; }
   .bio { font-size: 12px; }
