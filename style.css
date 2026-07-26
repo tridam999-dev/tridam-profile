@@ -339,23 +339,31 @@ body::before {
 /* ===== Avatar & HUD Rings ===== */
 .avatar-wrapper {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   margin: 0 auto 30px;
-  display: block;
+  display: grid;
+  place-items: center;
   z-index: 1;
 }
 
 .avatar {
-  width: 100%;
-  height: 100%;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 20%;
   border: 2px solid rgba(162,89,255,0.45);
   box-shadow: 0 0 24px rgba(162,89,255,0.35);
   position: relative;
   z-index: 2;
   transition: box-shadow 0.4s ease;
+  /* Image smoothing */
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Sci-fi HUD Rings */
@@ -370,13 +378,13 @@ body::before {
 }
 
 .avatar-ring-1 {
-  width: 138px; height: 138px;
+  width: 130px; height: 130px;
   border: 1.5px dashed rgba(0, 212, 255, 0.5);
   animation: spinRight 15s linear infinite;
 }
 
 .avatar-ring-2 {
-  width: 156px; height: 156px;
+  width: 150px; height: 150px;
   border: 2px dotted rgba(162, 89, 255, 0.4);
   animation: spinLeft 20s linear infinite;
   box-shadow: 0 0 20px rgba(162,89,255,0.1) inset;
@@ -397,12 +405,12 @@ body::before {
 }
 .avatar-wrapper.hover-lift:hover .avatar-ring-1 {
   border-color: rgba(0, 212, 255, 1);
-  width: 148px; height: 148px;
+  width: 142px; height: 142px;
   box-shadow: 0 0 15px rgba(0,212,255,0.4);
 }
 .avatar-wrapper.hover-lift:hover .avatar-ring-2 {
   border-color: rgba(162, 89, 255, 0.9);
-  width: 170px; height: 170px;
+  width: 162px; height: 162px;
 }
 
 /* ===== Name ===== */
@@ -868,41 +876,40 @@ body::before {
   }
 
   .avatar-wrapper {
-  width: 104px;
-  height: 104px;
-  margin-bottom: 42px;
-  display: grid;
-  place-items: center;
-}
+    width: 120px;
+    height: 120px;
+    margin-bottom: 42px;
+    display: grid;
+    place-items: center;
+  }
 
-.avatar {
-  width: 104px;
-  height: 104px;
-  margin: 0;
-  position: absolute;
-  inset: 0;
-  object-fit: cover;
-}
+  .avatar {
+    width: 90px;
+    height: 90px;
+    margin: 0;
+    object-fit: cover;
+    object-position: center 20%;
+  }
 
-.avatar-ring-1 {
-  width: 132px;
-  height: 132px;
-}
+  .avatar-ring-1 {
+    width: 112px;
+    height: 112px;
+  }
 
-.avatar-ring-2 {
-  width: 154px;
-  height: 154px;
-}
+  .avatar-ring-2 {
+    width: 130px;
+    height: 130px;
+  }
 
-.avatar-wrapper.hover-lift:hover .avatar-ring-1 {
-  width: 140px;
-  height: 140px;
-}
+  .avatar-wrapper.hover-lift:hover .avatar-ring-1 {
+    width: 120px;
+    height: 120px;
+  }
 
-.avatar-wrapper.hover-lift:hover .avatar-ring-2 {
-  width: 162px;
-  height: 162px;
-}
+  .avatar-wrapper.hover-lift:hover .avatar-ring-2 {
+    width: 140px;
+    height: 140px;
+  }
   .name { font-size: 28px; letter-spacing: 0.08em; }
   .typing-line { font-size: 13px; }
   .bio { font-size: 12px; }
