@@ -29,28 +29,29 @@ avatarImg.onerror = function () {
     "%3C/svg%3E";
 };
 
-/* ===== Intro Click — Transition to Main ===== */
-intro.addEventListener('click', function handleIntroClick() {
-  intro.removeEventListener('click', handleIntroClick);
-  intro.classList.add('fade-out');
-
+/* ===== Intro Auto Transition to Main ===== */
+window.addEventListener('load', () => {
+  // Add a small delay so the loading screen is visible
   setTimeout(() => {
-    intro.style.display = 'none';
-    main.classList.remove('hidden');
+    intro.classList.add('split-out');
 
-    // Double rAF: let browser paint before triggering transition
-    requestAnimationFrame(() => {
+    setTimeout(() => {
+      intro.style.display = 'none';
+      main.classList.remove('hidden');
+
+      // Double rAF: let browser paint before triggering transition
       requestAnimationFrame(() => {
-        main.classList.add('visible');
+        requestAnimationFrame(() => {
+          main.classList.add('visible');
+        });
       });
-    });
 
-    musicPlayer.classList.remove('hidden');
-    startMusic();
-    
-    // Start typing name after a slight delay
-    setTimeout(typeNameEffect, 500);
-  }, 750);
+      musicPlayer.classList.remove('hidden');
+      
+      // Start typing name after a slight delay
+      setTimeout(typeNameEffect, 500);
+    }, 1000); // 1s matches the CSS transition time
+  }, 800); // 800ms loading delay
 });
 
 /* ===== Music Player ===== */
