@@ -54,6 +54,30 @@ intro.addEventListener('click', function handleIntroClick() {
 });
 
 /* ===== Music Player ===== */
+const playlist = [
+  { src: "Tinh Yeu Cham Tre.mp3", title: "Tình Yêu Chậm Trễ", artist: "MONSTAR" },
+  { src: "Sau Con Mua.mp3", title: "Sau Cơn Mưa", artist: "RyO" }
+];
+let currentTrackIndex = 0;
+
+function loadTrack(index) {
+  const track = playlist[index];
+  bgMusic.src = track.src;
+  const titleEl = document.querySelector('.mp-title');
+  const artistEl = document.querySelector('.mp-artist');
+  if (titleEl) titleEl.textContent = track.title;
+  if (artistEl) artistEl.textContent = track.artist;
+  bgMusic.load();
+}
+
+bgMusic.addEventListener('ended', () => {
+  currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+  loadTrack(currentTrackIndex);
+  bgMusic.play()
+    .then(() => setPlayState(true))
+    .catch(() => setPlayState(false));
+});
+
 function setPlayState(playing) {
   isPlaying = playing;
   if (playing) {
@@ -75,10 +99,27 @@ function startMusic() {
   bgMusic.volume = 0.32;
   bgMusic.play()
     .then(() => setPlayState(true))
-    .catch(() => setPlayState(false));
+    .catch(() => {
+      setPlayState(false);
+      musicStarted = false; // Allow retry on next interaction
+    });
 }
 
-mpPlayBtn.addEventListener('click', () => {
+// Auto play attempt on load
+window.addEventListener('DOMContentLoaded', () => {
+  loadTrack(0); // Load first track
+  startMusic();
+});
+
+// Fallback to start music on first click anywhere if autoplay was blocked
+document.body.addEventListener('click', () => {
+  if (!musicStarted) {
+    startMusic();
+  }
+}, { once: true });
+
+mpPlayBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // Prevent triggering body click
   if (!musicStarted) { startMusic(); return; }
   if (isPlaying) {
     bgMusic.pause();
